@@ -11,8 +11,6 @@ const Header: React.FC<HeaderProps> = ({ activeTab, onTabChange }) => {
   const [analyticsDropdownOpen, setAnalyticsDropdownOpen] = useState(false)
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false)
 
-  const isAnalyticsActive = ['dashboard', 'physics', 'cs'].includes(activeTab)
-  const isAboutActive = ['about-me', 'about-site'].includes(activeTab)
 
   return (
     <motion.header 
