@@ -1,5 +1,5 @@
 import React from 'react'
-import { ChartBarIcon, BeakerIcon, CpuChipIcon, CircleStackIcon } from '@heroicons/react/24/outline'
+import { ChartBarIcon, BeakerIcon, CpuChipIcon, CircleStackIcon, CodeBracketIcon } from '@heroicons/react/24/outline'
 
 const AboutSite: React.FC = () => {
   return (
@@ -15,13 +15,11 @@ const AboutSite: React.FC = () => {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-secondary-900 mb-8">What is FresherPaint?</h2>
           <p className="text-gray-700 leading-relaxed text-lg mb-6">
-            FresherPaint is a modern analytics platform designed specifically for physics and computer 
-            science data visualization. Built with cutting-edge web technologies, it provides researchers 
-            and data enthusiasts with powerful tools to explore, analyze, and visualize complex datasets.
+            FresherPaint is a website that visualizes realistic, generated datasets for physics and computer science. The main objective of this site is to
+             show my interest in joining FreshPaint as a software engineer and to show my ability to work with relevant technologies.
           </p>
           <p className="text-gray-700 leading-relaxed text-lg">
-            The platform bridges the gap between raw scientific data and meaningful insights through 
-            interactive charts, real-time analytics, and intuitive user interfaces.
+            I hope that you will agree that this project shows my ability to make an impact at FreshPaint and that I show a genuine interest in joining the company.
           </p>
         </div>
       </div>
@@ -77,7 +75,7 @@ const AboutSite: React.FC = () => {
                 </li>
                 <li className="flex items-center">
                   <span className="text-secondary-900 mr-2">•</span>
-                  <span>Vite for fast development</span>
+                  <span>Vite build system</span>
                 </li>
                 <li className="flex items-center">
                   <span className="text-secondary-900 mr-2">•</span>
@@ -106,10 +104,6 @@ const AboutSite: React.FC = () => {
                 </li>
                 <li className="flex items-center">
                   <span className="text-secondary-900 mr-2">•</span>
-                  <span>CORS middleware</span>
-                </li>
-                <li className="flex items-center">
-                  <span className="text-secondary-900 mr-2">•</span>
                   <span>RESTful API design</span>
                 </li>
                 <li className="flex items-center">
@@ -127,13 +121,14 @@ const AboutSite: React.FC = () => {
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-secondary-900 mb-8">Design Philosophy</h2>
           <p className="text-gray-700 leading-relaxed text-lg mb-6">
-            FresherPaint follows a clean, modern design philosophy with a focus on usability and accessibility. 
-            The color scheme uses white as the primary color, dark blue (#1E3A8A) as secondary, and red (#DC2626) 
-            as an accent color to create a professional yet approachable interface.
+            FresherPaint mirrors a lot of the designs from the FreshPaint website. This is to show my ability to 
+            replicate a design and to show my ability to work with relevant technologies. I at no point ripped the html/css/js
+             from the FreshPaint website. I also did not copy any of the content from the FreshPaint website. I simply 
+             used the FreshPaint website as reference for the design of this website.
           </p>
           <p className="text-gray-700 leading-relaxed text-lg">
-            Every component is designed with responsive principles in mind, ensuring a seamless experience 
-            across desktop, tablet, and mobile devices.
+            I did my best to make the website responsive and user-friendly. I also did my best to add more modern features to the website, such as
+            hover effects, transitions, and animations.
           </p>
         </div>
       </div>
@@ -147,6 +142,30 @@ const AboutSite: React.FC = () => {
             The Dashboard provides an overview of all data types, while the Physics and Computer Science 
             sections offer specialized views tailored to each domain's unique requirements.
           </p>
+        </div>
+      </div>
+
+      {/* Source Code Section */}
+      <div className="bg-secondary-900 py-16 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-white mb-8">Open Source</h2>
+          <div className="flex items-center justify-center space-x-4 mb-6">
+            <CodeBracketIcon className="h-12 w-12 text-white" />
+            <div>
+              <p className="text-white leading-relaxed text-lg mb-4">
+                The source code for this website is available on GitHub.
+              </p>
+              <a 
+                href="https://github.com/ezrahuffman/fresherpaint" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-6 py-3 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-500 hover:shadow-lg hover:shadow-red-500/50 hover:-translate-y-1 transition-all duration-300 transform"
+              >
+                <CodeBracketIcon className="h-5 w-5 mr-2" />
+                View on GitHub
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

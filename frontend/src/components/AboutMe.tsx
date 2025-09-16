@@ -1,4 +1,5 @@
 import React from 'react'
+import { GlobeAltIcon } from '@heroicons/react/24/outline'
 
 const AboutMe: React.FC = () => {
   return (
@@ -6,7 +7,7 @@ const AboutMe: React.FC = () => {
       {/* Title Section */}
       <div className="bg-secondary-900 text-white py-16 px-6 flex flex-col items-center justify-center">
         <h1 className="text-5xl justify-center align-center font-bold mb-4">About Me</h1>
-        <p className="text-xl opacity-90 justify-center align-center">Passionate software engineer</p>
+        <p className="text-xl opacity-90 justify-center align-center">whoami</p>
       </div>
 
       {/* Two Column Content Section */}
@@ -14,16 +15,24 @@ const AboutMe: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-12 max-w-6xl align-center justify-center">
           <div>
             <h2 className="text-3xl font-bold text-gray-900 leading-tight">
-              Building the future through innovative data visualization and analytics
+              What I bring to FreshPaint and why I'm excited to join
             </h2>
           </div>
           <div>
-            <p className="text-gray-700 leading-relaxed text-lg">
-              With a background spanning both theoretical physics and practical computer science, I've 
-              developed a unique perspective on how data tells stories across different scientific domains. 
-              My goal is to bridge the gap between raw data and meaningful insights through innovative 
-              visualization techniques that make complex information accessible and compelling.
+            <p className="text-gray-700 leading-relaxed text-lg mb-6">
+              I am a software engineer with four years of experience, working with a wide range of technologies and domains. I am excited to join FreshPaint because I believe that 
+              FreshPaint is a company that values growth, has a strong business model, and is a company that I can be proud to be a part of. I am a quick learner, I have experience working in remote teams, 
+              I value collaboration and I am excited to join a fast paced, innovative company that aligns with my values and goals. 
             </p>
+            <a 
+              href="https://www.ezrahuffman.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-6 py-3 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-500 hover:shadow-lg hover:shadow-red-500/50 hover:-translate-y-1 transition-all duration-300 transform"
+            >
+              <GlobeAltIcon className="h-5 w-5 mr-2" />
+              Visit My Website
+            </a>
           </div>
         </div>
       </div>

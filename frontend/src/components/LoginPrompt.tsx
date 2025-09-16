@@ -68,7 +68,7 @@ const LoginPrompt: React.FC<LoginPromptProps> = ({ onLogin, error }) => {
               <button
                 type="submit"
                 disabled={isSubmitting || !password.trim()}
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary-900 hover:bg-secondary-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-secondary-900 hover:bg-secondary-800 hover:shadow-lg hover:shadow-secondary-900/50 hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary-900 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:transform-none disabled:hover:shadow-none transition-all duration-300 transform"
               >
                 {isSubmitting ? (
                   <div className="flex items-center">
