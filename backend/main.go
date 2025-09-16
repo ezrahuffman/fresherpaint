@@ -1,11 +1,13 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
 	"path/filepath"
+	"time"
 
 	"fresherpaint/backend/db"
 )
@@ -103,35 +105,71 @@ func cleanupAndRegenerateData() error {
 		return fmt.Errorf("failed to cleanup existing data: %w", err)
 	}
 	
-	log.Printf("Regenerating fresh sample data...")
+	log.Printf("Generating real-world datasets...")
 	
-	// Insert fresh sample data
-	sampleDataSQL := `
--- Insert sample physics data
-INSERT INTO analytics_data (title, description, data_type, data, created_at, updated_at) VALUES
-('Quantum Mechanics Measurements', 'Experimental data from quantum state measurements', 'physics', 
- '{"measurements": [{"energy": 1.2, "time": 0.1}, {"energy": 1.5, "time": 0.2}, {"energy": 1.8, "time": 0.3}], "units": {"energy": "eV", "time": "ns"}}',
- '2025-09-10 10:00:00+00', '2025-09-14 15:30:00+00'),
-('Particle Collision Data', 'High-energy particle collision analysis', 'physics',
- '{"collisions": [{"momentum": 150, "angle": 45}, {"momentum": 200, "angle": 30}, {"momentum": 180, "angle": 60}], "detector": "LHC", "energy_level": "14TeV"}',
- '2025-09-08 14:20:00+00', '2025-09-15 09:45:00+00');
-
--- Insert sample computer science data
-INSERT INTO analytics_data (title, description, data_type, data, created_at, updated_at) VALUES
-('Algorithm Performance Analysis', 'Runtime complexity measurements for sorting algorithms', 'computer_science',
- '{"algorithms": [{"name": "quicksort", "runtime": [0.1, 0.15, 0.12], "input_size": [1000, 5000, 10000]}, {"name":"bubble sort", "runtime": [0.09, 2.25, 50.15], "input_size": [1000, 5000, 10000]}, {"name": "mergesort", "runtime": [0.12, 0.18, 0.15], "input_size": [1000, 5000, 10000]}]}',
- '2025-09-05 11:15:00+00', '2025-09-12 16:20:00+00'),
-('Network Traffic Analysis', 'Real-time network performance metrics', 'computer_science',
- '{"metrics": [{"timestamp": "2025-09-01T00:00:00Z", "bandwidth": 100, "latency": 20}, {"timestamp": "2025-09-01T01:00:00Z", "bandwidth": 150, "latency": 15}], "units": {"bandwidth": "Mbps", "latency": "ms"}}',
- '2025-09-07 13:45:00+00', '2025-09-15 11:30:00+00');
-`
-	
-	_, err = database.GetDB().Exec(sampleDataSQL)
+	// Generate real physics datasets
+	physicsDatasets, err := generateRealPhysicsData()
 	if err != nil {
-		return fmt.Errorf("failed to insert fresh sample data: %w", err)
+		return fmt.Errorf("failed to generate physics data: %w", err)
 	}
 	
-	log.Printf("Sample data regeneration completed successfully")
+	// Generate real computer science datasets
+	csDatasets, err := generateRealCSData()
+	if err != nil {
+		return fmt.Errorf("failed to generate CS data: %w", err)
+	}
+	
+	// Insert physics datasets
+	for _, dataset := range physicsDatasets {
+		if err := insertDataset(dataset); err != nil {
+			return fmt.Errorf("failed to insert physics dataset: %w", err)
+		}
+	}
+	
+	// Insert computer science datasets
+	for _, dataset := range csDatasets {
+		if err := insertDataset(dataset); err != nil {
+			return fmt.Errorf("failed to insert CS dataset: %w", err)
+		}
+	}
+	
+	log.Printf("Real-world data generation completed successfully")
+	return nil
+}
+
+// insertDataset inserts a single dataset into the database
+func insertDataset(dataset map[string]interface{}) error {
+	// Convert data to JSON
+	dataJSON, err := json.Marshal(dataset["data"])
+	if err != nil {
+		return fmt.Errorf("failed to marshal data to JSON: %w", err)
+	}
+
+	// Set timestamps
+	now := time.Now()
+	createdAt := now.Add(-time.Duration(len(dataset)) * 24 * time.Hour) // Stagger creation dates
+	updatedAt := now
+
+	// Insert into database
+	query := `
+		INSERT INTO analytics_data (title, description, data_type, data, created_at, updated_at) 
+		VALUES ($1, $2, $3, $4, $5, $6)
+	`
+	
+	_, err = database.GetDB().Exec(
+		query,
+		dataset["title"],
+		dataset["description"],
+		dataset["data_type"],
+		dataJSON,
+		createdAt,
+		updatedAt,
+	)
+	
+	if err != nil {
+		return fmt.Errorf("failed to insert dataset into database: %w", err)
+	}
+
 	return nil
 }
 

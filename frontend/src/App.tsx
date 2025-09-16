@@ -135,6 +135,7 @@ function App() {
   const filteredData = activeTab === 'dashboard' 
     ? analyticsData 
     : analyticsData.filter(item => {
+        console.log('Filtering item:', item, 'activeTab:', activeTab, 'dataType:', item.dataType) // Debug log
         if (activeTab === 'cs') return item.dataType === 'computer_science'
         return item.dataType === activeTab
       })
