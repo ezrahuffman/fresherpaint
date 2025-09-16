@@ -22,7 +22,8 @@ const AboutMe: React.FC = () => {
             <p className="text-gray-700 leading-relaxed text-lg mb-6">
               I am a software engineer with four years of experience, working with a wide range of technologies and domains. I am excited to join FreshPaint because I believe that 
               FreshPaint is a company that values growth, has a strong business model, and is a company that I can be proud to be a part of. I am a quick learner, I have experience working in remote teams, 
-              I value collaboration and I am excited to join a fast paced, innovative company that aligns with my values and goals. 
+              I value collaboration and I am excited to join a fast paced, innovative company that aligns with my values and goals. This is actually my third time applying over the course of 1.5 years, just to be transparent
+              and emphasize that I am genuinely interested in joining FreshPaint.
             </p>
             <a 
               href="https://www.ezrahuffman.com" 
@@ -155,7 +156,7 @@ const AboutMe: React.FC = () => {
                 <ul className="ml-4">
                     <li className="text-gray-700 leading-relaxed flex items-start">
                       <span className="text-secondary-900 mr-2 mt-1">•</span>
-                      <span>"SOMETHING HERE"</span>
+                      <span>Personal accountability is something I try to bring to every role I take on. I believe that it is important to take ownership of your work and be responsible for the outcomes.</span>
                     </li>
                     <li className="text-gray-700 leading-relaxed flex items-start">
                       <span className="text-secondary-900 mr-2 mt-1">•</span>
