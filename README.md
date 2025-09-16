@@ -2,6 +2,22 @@
 
 A modern analytics platform for physics and computer science data visualization.
 
+## About This Project
+
+Hello FreshPaint team! 👋
+
+This project, **FresherPaint**, was created specifically to demonstrate my technical skills and passion for web development as part of my application to join your incredible team. The name is a playful nod to FreshPaint while showcasing what I can build. The project also specifically uses the technologies that FreshPaint uses to show my skills and knowledge.
+
+As someone deeply interested in both the technical challenges and creative possibilities that FreshPaint represents, I wanted to create something that reflects the kind of work I'd love to contribute to your platform. This analytics dashboard shows my background in computer science to create an engaging web application. While somewhat simple, I hope it conveys my skills and my enthusiasm for joining FreshPaint.
+
+**What this project demonstrates:**
+- Full-stack development with Go and React/TypeScript
+- Modern UI/UX design principles with responsive layouts
+- Data visualization and analytics capabilities
+- Clean, maintainable code architecture
+
+I'm excited about the possibility of bringing this same level of passion and technical expertise to the FreshPaint team, where I could help build tools that empower creators and make data visualization more accessible and beautiful.
+
 ## Project Structure
 
 ```
@@ -56,12 +72,6 @@ fresherpaint/
    cd frontend
    npm run dev
    ```
-
-## Color Scheme
-
-- **Primary**: White (#FFFFFF)
-- **Secondary**: Dark Blue (#1E3A8A)
-- **Accent**: Red (#DC2626)
 
 ## License
 
