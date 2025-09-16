@@ -54,6 +54,7 @@ func InitializeAuth(config *Config) error {
 
 	// Use password from config
 	password := config.SitePassword
+	fmt.Printf("Initializing auth with password: %s\n", password)
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {
@@ -65,6 +66,7 @@ func InitializeAuth(config *Config) error {
 		PasswordHash: string(hashedPassword),
 	}
 
+	fmt.Printf("Auth initialized successfully\n")
 	return nil
 }
 
@@ -88,7 +90,9 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Verify password
+	fmt.Printf("Login attempt with password: %s\n", loginReq.Password)
 	if err := bcrypt.CompareHashAndPassword([]byte(authConfig.PasswordHash), []byte(loginReq.Password)); err != nil {
+		fmt.Printf("Password validation failed: %v\n", err)
 		response := APIResponse{
 			Success: false,
 			Error:   "Invalid credentials",
@@ -98,6 +102,7 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(response)
 		return
 	}
+	fmt.Printf("Password validation successful\n")
 
 	// Generate JWT token
 	expiresAt := time.Now().Add(24 * time.Hour) // Token expires in 24 hours

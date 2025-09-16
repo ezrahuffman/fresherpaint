@@ -17,5 +17,5 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: SITE_PASSWORD
-        value: source.tide.white
+        value: nice_try_idiot
     healthCheckPath: /api/health
