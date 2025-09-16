@@ -19,7 +19,7 @@ func main() {
 	config := LoadConfig()
 
 	// Initialize authentication system
-	if err := InitializeAuth(); err != nil {
+	if err := InitializeAuth(config); err != nil {
 		log.Fatalf("Failed to initialize authentication: %v", err)
 	}
 

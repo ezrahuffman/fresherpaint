@@ -7,6 +7,7 @@ import LoginPrompt from './components/LoginPrompt'
 import AboutMe from './components/AboutMe'
 import AboutSite from './components/AboutSite'
 import { AnalyticsData } from './types/analytics'
+import { buildApiUrl } from './config/api'
 
 function App() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'physics' | 'cs' | 'about-me' | 'about-site'>(() => {
@@ -42,7 +43,7 @@ function App() {
   const handleLogin = async (password: string) => {
     try {
       setLoginError('')
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch(buildApiUrl('/auth/login'), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +90,7 @@ function App() {
         }
 
         const authData = JSON.parse(savedAuth)
-        const response = await fetch('/api/analytics', {
+        const response = await fetch(buildApiUrl('/analytics'), {
           headers: {
             'Authorization': `Bearer ${authData.token}`,
             'Content-Type': 'application/json',

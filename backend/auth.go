@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-	"os"
 	"strings"
 	"time"
 
@@ -40,9 +39,9 @@ type JWTClaims struct {
 var authConfig *AuthConfig
 
 // InitializeAuth initializes the authentication system
-func InitializeAuth() error {
-	// Generate a secure JWT secret if not provided via environment
-	jwtSecret := os.Getenv("JWT_SECRET")
+func InitializeAuth(config *Config) error {
+	// Use JWT secret from config, generate one if not provided
+	jwtSecret := config.JWTSecret
 	if jwtSecret == "" {
 		// Generate a random 32-byte secret
 		bytes := make([]byte, 32)
@@ -53,11 +52,8 @@ func InitializeAuth() error {
 		fmt.Printf("Generated JWT secret (set JWT_SECRET env var in production): %s\n", jwtSecret)
 	}
 
-	// Hash the password (in production, this should be stored securely)
-	password := os.Getenv("SITE_PASSWORD")
-	if password == "" {
-		password = "source.tide.white" // Default password, should be changed in production
-	}
+	// Use password from config
+	password := config.SitePassword
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
 	if err != nil {

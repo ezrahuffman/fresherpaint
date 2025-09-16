@@ -20,13 +20,20 @@ type Database struct {
 
 func NewDatabase(config *Config) (*Database, error) {
 	// Construct the connection string
+	// Use sslmode=require for production environments
+	sslMode := "disable"
+	if config.DBHost != "localhost" && config.DBHost != "127.0.0.1" {
+		sslMode = "require"
+	}
+	
 	connStr := fmt.Sprintf(
-		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		"host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
 		config.DBHost,
 		config.DBPort,
 		config.DBUser,
 		config.DBPassword,
 		config.DBName,
+		sslMode,
 	)
 
 	// Open a connection to the database
