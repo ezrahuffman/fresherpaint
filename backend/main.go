@@ -53,7 +53,7 @@ func main() {
 
 	// Setup routes
 	// Public routes
-	http.HandleFunc("/health", corsMiddleware(healthCheckHandler))
+	http.HandleFunc("/health", healthCheckHandler) // No CORS middleware for health checks
 	http.HandleFunc("/api/auth/login", corsMiddleware(loginHandler))
 
 	// Protected routes (require authentication)
@@ -62,8 +62,9 @@ func main() {
 	http.HandleFunc("/api/analytics/type", corsMiddleware(authMiddleware(getAnalyticsDataByTypeHandler)))
 
 	// Start the server
-	serverAddr := fmt.Sprintf(":%s", config.ServerPort)
-	log.Printf("Server starting on http://localhost%s\n", serverAddr)
+	serverAddr := fmt.Sprintf("0.0.0.0:%s", config.ServerPort)
+	log.Printf("Server starting on %s\n", serverAddr)
+	log.Printf("Health check available at: http://%s/health", serverAddr)
 	log.Printf("Available endpoints:")
 	log.Printf("  GET /health - Health check")
 	log.Printf("  POST /api/auth/login - User authentication")
@@ -174,12 +175,18 @@ func insertDataset(dataset map[string]interface{}) error {
 }
 
 func healthCheckHandler(w http.ResponseWriter, r *http.Request) {
+	// Log health check requests for debugging
+	log.Printf("Health check requested from %s", r.RemoteAddr)
+	
 	if r.Method != http.MethodGet {
+		log.Printf("Health check failed: invalid method %s", r.Method)
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
+	// Simple health check - don't depend on database
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write([]byte(`{"status":"healthy"}`))
+	log.Printf("Health check successful")
 }
