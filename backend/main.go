@@ -53,9 +53,9 @@ func main() {
 
 	// Setup routes
 	// Public routes
-	http.HandleFunc("/api/health", corsMiddleware(healthCheckHandler))
+	http.HandleFunc("/health", corsMiddleware(healthCheckHandler))
 	http.HandleFunc("/api/auth/login", corsMiddleware(loginHandler))
-	
+
 	// Protected routes (require authentication)
 	http.HandleFunc("/api/auth/verify", corsMiddleware(authMiddleware(verifyTokenHandler)))
 	http.HandleFunc("/api/analytics", corsMiddleware(authMiddleware(getAnalyticsDataHandler)))
@@ -65,12 +65,12 @@ func main() {
 	serverAddr := fmt.Sprintf(":%s", config.ServerPort)
 	log.Printf("Server starting on http://localhost%s\n", serverAddr)
 	log.Printf("Available endpoints:")
-	log.Printf("  GET /api/health - Health check")
+	log.Printf("  GET /health - Health check")
 	log.Printf("  POST /api/auth/login - User authentication")
 	log.Printf("  POST /api/auth/verify - Verify JWT token (protected)")
 	log.Printf("  GET /api/analytics - Get all analytics data (protected)")
 	log.Printf("  GET /api/analytics/type?type=physics|computer_science - Get filtered data (protected)")
-	
+
 	if err := http.ListenAndServe(serverAddr, nil); err != nil {
 		log.Fatalf("Server failed to start: %v", err)
 	}
@@ -78,7 +78,7 @@ func main() {
 
 func runMigrations() error {
 	log.Printf("Running database migrations...")
-	
+
 	// Read the migration file
 	migrationPath := filepath.Join("migrations", "001_initial_schema.sql")
 	migrationSQL, err := ioutil.ReadFile(migrationPath)
@@ -98,41 +98,41 @@ func runMigrations() error {
 
 func cleanupAndRegenerateData() error {
 	log.Printf("Cleaning up existing sample data...")
-	
+
 	// Delete all existing sample data
 	_, err := database.GetDB().Exec("DELETE FROM analytics_data")
 	if err != nil {
 		return fmt.Errorf("failed to cleanup existing data: %w", err)
 	}
-	
+
 	log.Printf("Generating real-world datasets...")
-	
+
 	// Generate real physics datasets
 	physicsDatasets, err := generateRealPhysicsData()
 	if err != nil {
 		return fmt.Errorf("failed to generate physics data: %w", err)
 	}
-	
+
 	// Generate real computer science datasets
 	csDatasets, err := generateRealCSData()
 	if err != nil {
 		return fmt.Errorf("failed to generate CS data: %w", err)
 	}
-	
+
 	// Insert physics datasets
 	for _, dataset := range physicsDatasets {
 		if err := insertDataset(dataset); err != nil {
 			return fmt.Errorf("failed to insert physics dataset: %w", err)
 		}
 	}
-	
+
 	// Insert computer science datasets
 	for _, dataset := range csDatasets {
 		if err := insertDataset(dataset); err != nil {
 			return fmt.Errorf("failed to insert CS dataset: %w", err)
 		}
 	}
-	
+
 	log.Printf("Real-world data generation completed successfully")
 	return nil
 }
@@ -155,7 +155,7 @@ func insertDataset(dataset map[string]interface{}) error {
 		INSERT INTO analytics_data (title, description, data_type, data, created_at, updated_at) 
 		VALUES ($1, $2, $3, $4, $5, $6)
 	`
-	
+
 	_, err = database.GetDB().Exec(
 		query,
 		dataset["title"],
@@ -165,7 +165,7 @@ func insertDataset(dataset map[string]interface{}) error {
 		createdAt,
 		updatedAt,
 	)
-	
+
 	if err != nil {
 		return fmt.Errorf("failed to insert dataset into database: %w", err)
 	}

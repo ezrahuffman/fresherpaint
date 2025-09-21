@@ -18,4 +18,4 @@ services:
         generateValue: true
       - key: SITE_PASSWORD
         value: nice_try_idiot
-    healthCheckPath: /api/health
+    healthCheckPath: /health
