@@ -14,8 +14,7 @@ const LoginPrompt: React.FC<LoginPromptProps> = ({ onLogin, error }) => {
     e.preventDefault()
     if (!password.trim()) return
     
-    setIsSubmitting(true)
-    await new Promise(resolve => setTimeout(resolve, 500)) // Small delay for UX
+    setIsSubmitting(true) 
     onLogin(password)
     setIsSubmitting(false)
   }
